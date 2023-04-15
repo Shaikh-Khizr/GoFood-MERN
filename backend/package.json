@@ -1,0 +1,16 @@
+{
+  "name": "fooddeliveryappbackend",
+  "version": "1.0.0",
+  "description": "This is backend of GoFood food delivery mern app.",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "Khizr AA Shaikh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^6.10.0",
+    "nodemon": "^2.0.22"
+  }
+}
