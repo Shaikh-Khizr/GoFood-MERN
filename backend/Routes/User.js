@@ -1,7 +1,11 @@
 const express = require('express')
-const router = express.Router()
 const User = require('../models/User')
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
 const { body, validationResult } = require('express-validator');
+
+const router = express.Router()
+const jwtSecretKey = "TXLKhkT5x6wzbqv8QEuxgdxL9kjwLHAzjX8S3g983ms=";
 
 router.post("/createUser", [
     body('name', 'Name must be at least 3 characters!').isLength({ min: 3 }),
@@ -14,11 +18,18 @@ router.post("/createUser", [
       return res.status(400).json({ errors: errors.array() });
     }
 
+    let salt = await bcrypt.genSalt(10);
+    let securedPassword = await bcrypt.hash(req.body.password, salt);
+
+    const existingUser = await User.findOne({ email: req.body.email });
+
+    if (existingUser) return res.status(400).json({ message: "User already exists." });
+
     try {
         await User.create({
             name: req.body.name,
             email: req.body.email,
-            password: req.body.password,
+            password: securedPassword,
             location: req.body.location,
         });
         res.json({ success: true });
@@ -47,11 +58,19 @@ router.post("/loginUser", [
                 return res.status(400).json({ error: "Try logging with correct credentials!" });
             }
 
-            if (req.body.password !== userData.password) {
+            const passwordCompare = await bcrypt.compare(req.body.password, userData.password);
+            if (!passwordCompare) {
                 return res.status(400).json({ error: "Try logging with correct credentials!" });
             }
+
+            const data = {
+                user: {
+                    id: userData.id
+                }
+            };
+            const authToken = jwt.sign(data, jwtSecretKey);
             
-            return res.json({ success: true });
+            return res.json({ success: true, authToken });
         } catch (error) {
             console.log(error);
             res.json({ success: false });
