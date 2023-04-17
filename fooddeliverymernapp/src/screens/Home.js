@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Card from '../components/Card'
-import Carousel from '../components/Carousel'
 import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 
@@ -31,7 +30,7 @@ export default function Home() {
     <div>
         <div> <Navbar /> </div>
         <div>
-          <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel" style={{ objectFit: "contain !important" }}>
+          <div id="carouselExampleFade" className="carousel slide carousel-fade" data-bs-ride="carousel">
               <div className="carousel-inner" id="carousel">
                   <div className="carousel-caption" style={{ zIndex: "10"}}>
                       <div className="d-flex justify-content-center">
@@ -39,13 +38,13 @@ export default function Home() {
                       </div>
                   </div>
                   <div className="carousel-item active">
-                      <img src="https://source.unsplash.com/random/900×700/?burger" className="d-block w-100" style={{ filter: "brightness(30%)"}} alt="..." />
+                      <img src="https://source.unsplash.com/random/900×700/?burger" className="d-block w-100" style={{ filter: "brightness(30%)", height: "700px", objectFit: "cover" }} alt="..." />
                   </div>
                   <div className="carousel-item">
-                      <img src="https://source.unsplash.com/random/900×700/?pizza" className="d-block w-100" style={{ filter: "brightness(30%)"}} alt="..." />
+                      <img src="https://source.unsplash.com/random/900×700/?pizza" className="d-block w-100" style={{ filter: "brightness(30%)", height: "700px", objectFit: "cover" }} alt="..." />
                   </div>
                   <div className="carousel-item">
-                      <img src="https://source.unsplash.com/random/900×700/?barbeque" className="d-block w-100" style={{ filter: "brightness(30%)"}} alt="..." />
+                      <img src="https://source.unsplash.com/random/900×700/?barbeque" className="d-block w-100" style={{ filter: "brightness(30%)", height: "700px", objectFit: "cover" }} alt="..." />
                   </div>
               </div>
               <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
