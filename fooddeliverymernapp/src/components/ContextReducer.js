@@ -16,12 +16,14 @@ const reducer = (state, action) => {
             let myArray = [...state]
             myArray.find((food, index) => {
                 if (food.id === action.id) {
-                    console.log(food.quantity, parseInt(action.quantity), action.price + food.price);
                     myArray[index] = { ...food, quantity: parseInt(action.quantity) + parseInt(food.quantity), price: action.price + food.price }
                 }
                 return myArray;
             })
             return myArray;
+        case "DROP":
+            let emptyArray = []
+            return emptyArray;
         default:
             console.log("Error in Reducer");
     }
